@@ -35,6 +35,7 @@ def clean_csv() -> list[pd.DataFrame]:
         each["Cost"] = each["Cost"].round(2)
         each["month"] = pd.to_numeric(each["month"])
         each["time"] = pd.to_numeric(each["time"])
+        each["city"] = each["Purchase Address"].str.split(", ", expand=True)[1]
         clean.append(each)
     return clean
 

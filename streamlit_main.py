@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
 import streamlit as st
 
 from clean_data import clean_csv
@@ -46,7 +47,7 @@ months = st.sidebar.multiselect(
 
 
 @st.cache
-def get_dataset(months) -> pd.DataFrame:
+def get_dataset(months) -> pd.DataFrame | list:
     cat = []
     month_num = []
     if "January" in months:
@@ -136,3 +137,8 @@ for i in range(len(pie_data)):
 fig1, ax1 = plt.subplots()
 ax1.pie(x=pie_data, labels=pie_data.index, explode=explode, autopct="%1.1f%%")
 st.pyplot(fig1)
+
+st.write("# Sales of Each Product by City")
+fig2 = plt.figure(figsize=(20, 10))
+sns.countplot(data=data, x="city", hue="Product")
+st.pyplot(fig2)
