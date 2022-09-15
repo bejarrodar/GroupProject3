@@ -1,4 +1,5 @@
 import pandas as pd
+from sqlalchemy import create_engine
 
 
 def read_csv() -> list[pd.DataFrame]:
@@ -36,3 +37,25 @@ def clean_csv() -> list[pd.DataFrame]:
         each["time"] = pd.to_numeric(each["time"])
         clean.append(each)
     return clean
+
+
+def data_to_sql(data: list[pd.DataFrame]):
+    sql = "sqlite+pysqlite:///GroupProject3.db"
+    engine = create_engine(sql)
+    data[0].to_sql("January", engine)
+    data[1].to_sql("February", engine)
+    data[2].to_sql("March", engine)
+    data[3].to_sql("April", engine)
+    data[4].to_sql("May", engine)
+    data[5].to_sql("June", engine)
+    data[6].to_sql("July", engine)
+    data[7].to_sql("August", engine)
+    data[8].to_sql("September", engine)
+    data[9].to_sql("October", engine)
+    data[10].to_sql("November", engine)
+    data[11].to_sql("December", engine)
+
+
+if __name__ == "__main__":
+    data = clean_csv()
+    data_to_sql(data)
